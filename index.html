@@ -3,55 +3,376 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stockmath - Stock Calculators</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Stock Calculator - Professional Mega Calculator Hub</title>
+    <style>
+        /* Professional Dark Theme CSS */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        header {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            background-color: #1e1e1e;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            border-bottom: 2px solid #00bcd4;
+        }
+        h1 {
+            margin: 0;
+            color: #00bcd4;
+            font-size: 2.5em;
+        }
+        #searchBar {
+            width: 80%;
+            max-width: 400px;
+            padding: 12px;
+            margin-top: 15px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background-color: #2a2a2a;
+            color: #ffffff;
+            font-size: 16px;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .tab-button {
+            background-color: #2a2a2a;
+            border: none;
+            padding: 12px 20px;
+            margin: 0 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #ffffff;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .tab-button.active {
+            background-color: #00bcd4;
+        }
+        .tab-content {
+            display: none;
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        main {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+        }
+        #calcListSection {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        h2 {
+            color: #00bcd4;
+            margin-top: 0;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        li {
+            background-color: #2a2a2a;
+            margin: 8px 0;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        li:hover {
+            background-color: #3a3a3a;
+            transform: translateY(-2px);
+        }
+        #calculator {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        #inputs {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        input, select {
+            padding: 10px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: #2a2a2a;
+            color: #ffffff;
+            font-size: 16px;
+        }
+        button {
+            background-color: #00bcd4;
+            color: #ffffff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0097a7;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            min-height: 50px;
+            font-weight: bold;
+        }
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 15px;
+            background-color: #1e1e1e;
+            margin-top: 20px;
+            border-top: 2px solid #00bcd4;
+        }
+        /* Basic Calculator Styles */
+        #basicCalc {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            max-width: 300px;
+            margin: 20px auto;
+        }
+        #basicCalc input {
+            grid-column: span 4;
+            text-align: right;
+        }
+        #basicCalc button {
+            padding: 15px;
+            font-size: 18px;
+        }
+        @media (max-width: 768px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* Additional styles for professionalism */
+        .formula {
+            font-style: italic;
+            color: #cccccc;
+            margin-bottom: 10px;
+        }
+        .example {
+            background-color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Stockmath</h1>
+        <h1>Stock Calculator</h1>
         <input type="text" id="searchBar" placeholder="Search calculators...">
     </header>
     
-    <main>
-        <section id="recommended">
-            <h2>Recommended Calculators</h2>
-            <ul id="calcList">
-                <li data-calc="stockReturn">1. Stock Return Calculator – computes % return: (Sell-Price + Dividends − Buy-Price) / Buy-Price.</li>
-                <li data-calc="futureValue">2. Future Value of Shares Calculator – given current price, expected growth rate & time horizon, what will it be.</li>
-                <li data-calc="averageBuy">3. Average Buy Price Calculator – for multiple lots: total cost ÷ total shares. (e.g., averaging down)</li>
-                <li data-calc="positionSize">6. Position Size Calculator – given risk per trade, stop-loss distance, what size (number of shares) to buy.</li>
-                <li data-calc="peRatio">11. PE Ratio & Implied Value Calculator – given earnings and expected PE, what should price be.</li>
-                <li data-calc="holdingPeriod">4. Holding Period Return Calculator – factoring in time, capital gain + dividends over a holding period.</li>
-                <li data-calc="reverseReturn">5. Reverse Return (Required Return) Calculator – given target price/time, what % return you need.</li>
-                <li data-calc="portfolioWeight">7. Portfolio Weight Calculator – compute how much of a portfolio a given stock is (value ÷ total portfolio)</li>
-                <li data-calc="breakeven">8. Breakeven Price Calculator – factoring costs (brokerage, taxes) what price you must reach.</li>
-                <li data-calc="margin">9. Margin / Leverage Calculator – for margin trading: required capital, maximum allowable shares, etc.</li>
-                <li data-calc="stopLoss">10. Stop-Loss / Take-Profit Calculator – given entry price and % stop/take, compute target levels.</li>
-                <li data-calc="dividendYield">12. Dividend Yield & Future Dividend Calculator – yield now, expected growth, future dividend.</li>
-                <li data-calc="earningsGrowth">13. Earnings Growth Impact Calculator – given earnings growth rate, compute future EPS and price.</li>
-                <li data-calc="dilution">14. Dilution Impact Calculator – how issuance of new shares affects existing share value.</li>
-                <li data-calc="intrinsicValue">15. Intrinsic Value Calculator (Discounted Cash Flow simplified) – project cash flows, discount rate, get value.</li>
-                <li data-calc="beta">16. Beta & Volatility Calculator – compute stock’s beta vs market and what that implies for risk.</li>
-                <li data-calc="var">17. Value‐at‐Risk (VaR) Calculator for Single Stock – estimate worst‐case loss over a given time & probability.</li>
-                <li data-calc="sensitivity">18. Sensitivity Calculator – how changes in growth rate / discount rate / margin affect valuation.</li>
-                <li data-calc="correlation">19. Correlation / Covariance Calculator – assess how this stock moves with another stock or index.</li>
-                <li data-calc="scenario">20. Scenario/Stress Test Calculator – run best-case, base-case, worst-case for stock price or portfolio.</li>
-                <li data-calc="trailingStop">21. Trailing Stop Recalculation Calculator – for dynamic stop loss based on movement of stock price.</li>
-                <li data-calc="stockSplit">22. Stock Splits & Bonus Impact Calculator – effect of stock splits, bonus shares on cost and quantity.</li>
-                <li data-calc="taxReturn">23. Tax/After‐Tax Return Calculator – given capital gain, dividends, compute after‐tax return.</li>
-                <li data-calc="drip">24. Dividend Reinvestment Calculator (DRIP) – if you reinvest dividends, how much would you have after time.</li>
-                <li data-calc="timeToTarget">25. Time to Target Price Calculator – given current growth/return rate, estimate time to reach a target price.</li>
-            </ul>
-        </section>
-        
-        <section id="calculator">
-            <h2 id="calcTitle">Select a Calculator</h2>
-            <div id="inputs"></div>
-            <button id="calculateBtn">Calculate</button>
-            <div id="output"></div>
-        </section>
-    </main>
+    <div class="tabs">
+        <button class="tab-button active" data-tab="stock">Stock Calculators</button>
+        <button class="tab-button" data-tab="basic">Basic Calculators</button>
+    </div>
     
-    <script src="script.js"></script>
-</body>
-</html>
+    <div id="stockTab" class="tab-content active">
+        <main>
+            <section id="calcListSection">
+                <h2>Stock Calculators</h2>
+                <ul id="calcListStock">
+                    <li data-calc="stockReturn">1. Stock Return Calculator</li>
+                    <li data-calc="futureValue">2. Future Value of Shares Calculator</li>
+                    <li data-calc="averageBuy">3. Average Buy Price Calculator</li>
+                    <li data-calc="holdingPeriod">4. Holding Period Return Calculator</li>
+                    <li data-calc="reverseReturn">5. Reverse Return Calculator</li>
+                    <li data-calc="positionSize">6. Position Size Calculator</li>
+                    <li data-calc="portfolioWeight">7. Portfolio Weight Calculator</li>
+                    <li data-calc="breakeven">8. Breakeven Price Calculator</li>
+                    <li data-calc="margin">9. Margin Calculator</li>
+                    <li data-calc="stopLoss">10. Stop-Loss Calculator</li>
+                    <li data-calc="peRatio">11. PE Ratio Calculator</li>
+                    <li data-calc="dividendYield">12. Dividend Yield Calculator</li>
+                    <li data-calc="earningsGrowth">13. Earnings Growth Calculator</li>
+                    <li data-calc="dilution">14. Dilution Calculator</li>
+                    <li data-calc="intrinsicValue">15. Intrinsic Value Calculator</li>
+                    <li data-calc="beta">16. Beta Calculator</li>
+                    <li data-calc="var">17. VaR Calculator</li>
+                    <li data-calc="sensitivity">18. Sensitivity Calculator</li>
+                    <li data-calc="correlation">19. Correlation Calculator</li>
+                    <li data-calc="scenario">20. Scenario Calculator</li>
+                    <li data-calc="trailingStop">21. Trailing Stop Calculator</li>
+                    <li data-calc="stockSplit">22. Stock Split Calculator</li>
+                    <li data-calc="taxReturn">23. Tax Return Calculator</li>
+                    <li data-calc="drip">24. DRIP Calculator</li>
+                    <li data-calc="timeToTarget">25. Time to Target Calculator</li>
+                    <li data-calc="sharpeRatio">26. Sharpe Ratio Calculator</li>
+                    <li data-calc="dividendPayout">27. Dividend Payout Ratio Calculator</li>
+                    <li data-calc="debtEquity">28. Debt-to-Equity Ratio Calculator</li>
+                    <li data-calc="roe">29. ROE Calculator</li>
+                    <li data-calc="freeCashFlow">30. Free Cash Flow Calculator</li>
+                </ul>
+            </section>
+            
+            <section id="calculator">
+                <h2 id="calcTitle">Select a Calculator</h2>
+                <div id="inputs"></div>
+                <button id="calculateBtn">Calculate</button>
+                <div id="output"></div>
+            </section>
+        </main>
+    </div>
+    
+    <div id="basicTab" class="tab-content">
+        <main>
+            <section id="calcListSection">
+                <h2>Basic Calculators</h2>
+                <ul id="calcListBasic">
+                    <li data-calc="addition">1. Addition Calculator</li>
+                    <li data-calc="subtraction">2. Subtraction Calculator</li>
+                    <li data-calc="multiplication">3. Multiplication Calculator</li>
+                    <li data-calc="division">4. Division Calculator</li>
+                    <li data-calc="percentage">5. Percentage Calculator</li>
+                    <li data-calc="average">6. Average Calculator</li>
+                    <li data-calc="ratio">7. Ratio Calculator</li>
+                    <li data-calc="proportion">8. Proportion Calculator</li>
+                    <li data-calc="squareRoot">9. Square & Square Root Calculator</li>
+                    <li data-calc="cubeRoot">10. Cube & Cube Root Calculator</li>
+                    <li data-calc="exponent">11. Exponent Calculator</li>
+                    <li data-calc="factorial">12. Factorial Calculator</li>
+                    <li data-calc="modulo">13. Modulo Calculator</li>
+                    <li data-calc="lcmHcf">14. LCM & HCF Calculator</li>
+                    <li data-calc="primeCheck">15. Prime Number Checker</li>
+                    <li data-calc="absolute">16. Absolute Value Calculator</li>
+                    <li data-calc="rounding">17. Rounding Numbers Calculator</li>
+                    <li data-calc="fracToDec">18. Fraction to Decimal Converter</li>
+                    <li data-calc="decToFrac">19. Decimal to Fraction Converter</li>
+                    <li data-calc="simplifyFrac">20. Simplify Fraction Calculator</li>
+                    <li data-calc="linearEq">21. Linear Equation Solver</li>
+                    <li data-calc="quadraticEq">22. Quadratic Equation Solver</li>
+                    <li data-calc="systemEq">23. System of 2 Equations Solver</li>
+                    <li data-calc="polynomialRoot">24. Polynomial Root Finder</li>
+                    <li data-calc="slopeIntercept">25. Slope & Intercept Calculator</li>
+                    <li data-calc="distancePoints">26. Distance Between Two Points Calculator</li>
+                    <li data-calc="midpoint">27. Midpoint Calculator</li>
+                    <li data-calc="pointSlope">28. Point-Slope Form Calculator</li>
+                    <li data-calc="sectionFormula">29. Section Formula Calculator</li>
+                    <li data-calc="determinant">30. Determinant Calculator</li>
+                    <li data-calc="circleArea">31. Area of Circle Calculator</li>
+                    <li data-calc="triangleArea">32. Area of Triangle Calculator</li>
+                    <li data-calc="rectangleArea">33. Area of Rectangle Calculator</li>
+                    <li data-calc="perimeter">34. Perimeter Calculator</li>
+                    <li data-calc="volume">35. Volume Calculator</li>
+                    <li data-calc="surfaceArea">36. Surface Area Calculator</li>
+                    <li data-calc="pythagoras">37. Pythagoras Theorem Calculator</li>
+                    <li data-calc="trigValues">38. Trigonometric Values Calculator</li>
+                    <li data-calc="angleConvert">39. Angle Conversion Calculator</li>
+                    <li data-calc="sectorArea">40. Circle Sector Area Calculator</li>
+                    <li data-calc="meanMedianMode">41. Mean / Median / Mode Calculator</li>
+                    <li data-calc="rangeStdDev">42. Range & Standard Deviation Calculator</li>
+                    <li data-calc="probability">43. Probability Calculator</li>
+                    <li data-calc="permutation">44. Permutation Calculator</li>
+                    <li data-calc="combination">45. Combination Calculator</li>
+                    <li data-calc="conditionalProb">46. Conditional Probability Calculator</li>
+                    <li data-calc="expectedValue">47. Expected Value Calculator</li>
+                    <li data-calc="randomNum">48. Random Number Generator</li>
+                    <li data-calc="binomialDist">49. Binomial Distribution Calculator</li>
+                    <li data-calc="normalDist">50. Normal Distribution Calculator</li>
+                    <li data-calc="simpleInterest">51. Simple Interest Calculator</li>
+                    <li data-calc="compoundInterest">52. Compound Interest Calculator</li>
+                    <li data-calc="emi">53. EMI Calculator</li>
+                    <li data-calc="sip">54. SIP Calculator</li>
+                    <li data-calc="profitLoss">55. Profit or Loss Calculator</li>
+                    <li data-calc="breakEven">56. Break-even Point Calculator</li>
+                    <li data-calc="currencyConvert">57. Currency Converter</li>
+                    <li data-calc="discount">58. Discount Percentage Calculator</li>
+                    <li data-calc="gst">59. GST Calculator</li>
+                    <li data-calc="salaryTax">60. Salary Tax Calculator</li>
+                    <li data-calc="speedDistTime">61. Speed, Distance, Time Calculator</li>
+                    <li data-calc="acceleration">62. Acceleration Calculator</li>
+                    <li data-calc="force">63. Force Calculator</li>
+                    <li data-calc="workPower">64. Work, Power, Energy Calculator</li>
+                    <li data-calc="pressure">65. Pressure Calculator</li>
+                    <li data-calc="ohmsLaw">66. Ohm’s Law Calculator</li>
+                    <li data-calc="resistance">67. Series & Parallel Resistance Calculator</li>
+                    <li data-calc="capacitance">68. Capacitance Calculator</li>
+                    <li data-calc="inductance">69. Inductance Calculator</li>
+                    <li data-calc="voltageDivider">70. Voltage Divider Calculator</li>
+                    <li data-calc="currentDivider">71. Current Divider Calculator</li>
+                    <li data-calc="powerFactor">72. Power Factor Calculator</li>
+                    <li data-calc="frequencyWavelength">73. Frequency & Wavelength Calculator</li>
+                    <li data-calc="projectile">74. Projectile Motion Calculator</li>
+                    <li data-calc="torque">75. Torque Calculator</li>
+                    <li data-calc="binaryToDec">76. Binary to Decimal Converter</li>
+                    <li data-calc="decToBinary">77. Decimal to Binary Converter</li>
+                    <li data-calc="hexConvert">78. Hexadecimal Converter</li>
+                    <li data-calc="bitwise">79. Bitwise Calculator</li>
+                    <li data-calc="truthTable">80. Truth Table Generator</li>
+                    <li data-calc="booleanSimplify">81. Boolean Algebra Simplifier</li>
+                    <li data-calc="ipSubnet">82. IP Address Subnet Calculator</li>
+                    <li data-calc="dataTransfer">83. Data Transfer Rate Calculator</li>
+                    <li data-calc="downloadTime">84. Download Time Calculator</li>
+                    <li data-calc="asciiConvert">85. ASCII Converter</li>
+                    <li data-calc="differentiation">86. Differentiation Calculator</li>
+                    <li data-calc="integration">87. Integration Calculator</li>
+                    <li data-calc="matrixOps">88. Matrix Operations Calculator</li>
+                    <li data-calc="eigenvalue">89. Eigenvalue Calculator</li>
+                    <li data-calc="laplace">90. Laplace Transform Calculator</li>
+                    <li data-calc="fourier">91. Fourier Series Calculator</li>
+                    <li data-calc="limit">92. Limit Calculator</li>
+                    <li data-calc="partialDeriv">93. Partial Derivative Calculator</li>
+                    <li data-calc="complexOps">94. Complex Number Operations Calculator</li>
+                    <li data-calc="ageCalc">95. Age Calculator</li>
+                    <li data-calc="bmi">96. BMI Calculator</li>
+                    <li data-calc="dateDiff">97. Date Difference Calculator</li>
+                    <li data-calc="unitConvert">98. Unit Converter</li>
+                    <li data-calc="tempConvert">99. Temperature Converter</li>
+                    <li data-calc="basicCalc">100. Basic Calculator</li>
+                </ul>
+            </section>
+            
+            <section id="calculator">
+                <h2 id="calcTitle">Select a Calculator</h2>
+                <div id="inputs"></div>
+                <button id="calculateBtn">Calculate</button>
+                <div id="output"></div>
+            </section>
+        </main>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 Stock Calculator. Professional Mega Calculator Hub.</p>
+    </footer>
+    
+    <script>
+        // Tab switching
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents
