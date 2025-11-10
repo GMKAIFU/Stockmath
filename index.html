@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stockmath - Stock Calculators</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Stockmath</h1>
+        <input type="text" id="searchBar" placeholder="Search calculators...">
+    </header>
+    
+    <main>
+        <section id="recommended">
+            <h2>Recommended Calculators</h2>
+            <ul id="calcList">
+                <li data-calc="stockReturn">1. Stock Return Calculator – computes % return: (Sell-Price + Dividends − Buy-Price) / Buy-Price.</li>
+                <li data-calc="futureValue">2. Future Value of Shares Calculator – given current price, expected growth rate & time horizon, what will it be.</li>
+                <li data-calc="averageBuy">3. Average Buy Price Calculator – for multiple lots: total cost ÷ total shares. (e.g., averaging down)</li>
+                <li data-calc="positionSize">6. Position Size Calculator – given risk per trade, stop-loss distance, what size (number of shares) to buy.</li>
+                <li data-calc="peRatio">11. PE Ratio & Implied Value Calculator – given earnings and expected PE, what should price be.</li>
+                <li data-calc="holdingPeriod">4. Holding Period Return Calculator – factoring in time, capital gain + dividends over a holding period.</li>
+                <li data-calc="reverseReturn">5. Reverse Return (Required Return) Calculator – given target price/time, what % return you need.</li>
+                <li data-calc="portfolioWeight">7. Portfolio Weight Calculator – compute how much of a portfolio a given stock is (value ÷ total portfolio)</li>
+                <li data-calc="breakeven">8. Breakeven Price Calculator – factoring costs (brokerage, taxes) what price you must reach.</li>
+                <li data-calc="margin">9. Margin / Leverage Calculator – for margin trading: required capital, maximum allowable shares, etc.</li>
+                <li data-calc="stopLoss">10. Stop-Loss / Take-Profit Calculator – given entry price and % stop/take, compute target levels.</li>
+                <li data-calc="dividendYield">12. Dividend Yield & Future Dividend Calculator – yield now, expected growth, future dividend.</li>
+                <li data-calc="earningsGrowth">13. Earnings Growth Impact Calculator – given earnings growth rate, compute future EPS and price.</li>
+                <li data-calc="dilution">14. Dilution Impact Calculator – how issuance of new shares affects existing share value.</li>
+                <li data-calc="intrinsicValue">15. Intrinsic Value Calculator (Discounted Cash Flow simplified) – project cash flows, discount rate, get value.</li>
+                <li data-calc="beta">16. Beta & Volatility Calculator – compute stock’s beta vs market and what that implies for risk.</li>
+                <li data-calc="var">17. Value‐at‐Risk (VaR) Calculator for Single Stock – estimate worst‐case loss over a given time & probability.</li>
+                <li data-calc="sensitivity">18. Sensitivity Calculator – how changes in growth rate / discount rate / margin affect valuation.</li>
+                <li data-calc="correlation">19. Correlation / Covariance Calculator – assess how this stock moves with another stock or index.</li>
+                <li data-calc="scenario">20. Scenario/Stress Test Calculator – run best-case, base-case, worst-case for stock price or portfolio.</li>
+                <li data-calc="trailingStop">21. Trailing Stop Recalculation Calculator – for dynamic stop loss based on movement of stock price.</li>
+                <li data-calc="stockSplit">22. Stock Splits & Bonus Impact Calculator – effect of stock splits, bonus shares on cost and quantity.</li>
+                <li data-calc="taxReturn">23. Tax/After‐Tax Return Calculator – given capital gain, dividends, compute after‐tax return.</li>
+                <li data-calc="drip">24. Dividend Reinvestment Calculator (DRIP) – if you reinvest dividends, how much would you have after time.</li>
+                <li data-calc="timeToTarget">25. Time to Target Price Calculator – given current growth/return rate, estimate time to reach a target price.</li>
+            </ul>
+        </section>
+        
+        <section id="calculator">
+            <h2 id="calcTitle">Select a Calculator</h2>
+            <div id="inputs"></div>
+            <button id="calculateBtn">Calculate</button>
+            <div id="output"></div>
+        </section>
+    </main>
+    
+    <script src="script.js"></script>
+</body>
+</html>
