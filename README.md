@@ -1,0 +1,2 @@
+# Stockmath
+Cretin website
